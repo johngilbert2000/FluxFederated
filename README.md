@@ -1,29 +1,28 @@
 # FluxFederated
 
-Keep your Flux models in style with Federated Learning
+Make your [Flux](https://fluxml.ai/) models stylish with [Federated Learning](https://ai.googleblog.com/2017/04/federated-learning-collaborative.html).
 
 
 ### TODO
 
-```
-[+] Send Flux model over TCP socket connection
-[+] Support multiple connections, asynchronously
-[+] Encrypt socket communication (RSA, AES)
-[-] Pseudo-SecAgg (involves trusted 3rd party)
-[-] FedAvg
-[-] Local training commands
-[-] Differential Privacy
-[-] Federated Ensemble Support
-[-] SecAgg (no trusted 3rd party)
-```
+- [X] Send Flux model over TCP socket connection
+- [X] Support multiple connections, asynchronously
+- [X] Encrypt socket communication (RSA, AES)
+- [ ] Pseudo-SecAgg (involves trusted 3rd party)
+- [ ] FedAvg
+- [ ] Local training commands
+- [ ] Differential Privacy
+- [ ] Federated Ensemble Support
+- [ ] SecAgg (no trusted 3rd party)
+- [ ] Model Quantization
 
 ##### ADDITIONAL FEATURES
 
-```
-[-] Adversarial Attacks
-[-] Poisoning Attacks
-[-] Reconstruction Attacks
-```
+The following features could help assess privacy and security guarantees:
+
+- [ ] Adversarial Attacks
+- [ ] Poisoning Attacks
+- [ ] Reconstruction Attacks
 
 ### CURRENT USAGE
 
