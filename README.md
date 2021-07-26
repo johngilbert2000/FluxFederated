@@ -39,7 +39,7 @@ using Flux
 
 # Listen on localhost port 3000
 server = listen(3000)
-con = accept(3000)
+con = accept(server)
 
 # Establish shared AES key via RSA
 shared_key = handshake_server(con)
