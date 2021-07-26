@@ -1,7 +1,7 @@
 module CryptUtils
 
 using Random: RandomDevice, randstring
-using Nettle: hexdigest
+using Nettle: hexdigest, gen_key32_iv16
 using Primes: nextprime
 
 export gen_salt, gen_key32, to_str, to_bytes, Bytes
