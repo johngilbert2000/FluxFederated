@@ -1,0 +1,4 @@
+name = "FluxFederated"
+uuid = "3bf5b958-51c1-437f-9dbe-77604571be81"
+authors = ["John Gilbert"]
+version = "0.1.0"
