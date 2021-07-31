@@ -12,7 +12,7 @@ Example:
 ```
 # Let m1, m2, m3 be Flux models
 models_dict = Dict("some_id" => [m1, m2, m3])
-averaged_model = fedavg(models_dict, "some_id")
+averaged_model = fedavg!(models_dict, "some_id")
 ```
 """
 function fedavg!(models_dict::Dict{String, Any}, round_id::String)
@@ -65,15 +65,15 @@ function establish_round_id(con::TCPSocket, shared_key::Bytes)
 end
 
 """
-  `serve_model(server::TCPServer, model, threshold=3, learning_rate=0.1, verbose=true)`
+  `serve_model(server::TCPServer, model, round_len=3, learning_rate=0.1, verbose=true)`
 
 Sends Flux model to clients, asynchronously
 
-`threshold`: number of clients per round
+`round_len`: number of clients per round
 `learning_rate`: degree that averaged client models replace server model per round
 `verbose`: if true, print parameter information
 """
-function serve_model(server::TCPServer, model, threshold = 3, learning_rate = 0.1, verbose=true)
+function serve_model(server::TCPServer, model, round_len = 3, learning_rate = 0.1, verbose=true)
   num_connected = 0
   client_models = Dict{String, Any}()
 
@@ -118,8 +118,8 @@ function serve_model(server::TCPServer, model, threshold = 3, learning_rate = 0.
             println("Checking Round ID: $round_id (length: $(length(client_models[round_id])))")
           end
 
-          # Average models, if models received >= threshold
-          if length(client_models[round_id]) >= threshold
+          # Average models, if models received >= round_len
+          if length(client_models[round_id]) >= round_len
             averaged_model = fedavg!(client_models, round_id)
             model = update_model(model, averaged_model, learning_rate)
 
