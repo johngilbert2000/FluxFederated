@@ -1,32 +1,13 @@
-module SockUtils
 
 using BSON: @save, @load
 using Nettle
 using Sockets
-#  using Flux
-#  using Random
-
-include("CryptUtils.jl")
-using .CryptUtils
-
-export ConnectionError
-export handshake_client, handshake_server, secure_send, secure_receive
-export secure_send_bytes, secure_send_int, secure_receive_bytes, secure_receive_int
-export var_to_bytes, var_from_bytes, model_to_bytes, model_from_buffer, model_from_bytes
 
 int(s::String) = parse(Int, s)
 bigint(s::String) = parse(BigInt, s)
 
-struct ConnectionError <: Exception
-  msg::String
-end
-
-function Base.showerror(io::IO, err::ConnectionError)
-  print(io, "ConnectionError: ", err.msg)
-end
-
 """
-  var_to_bytes(variable)::Bytes
+  `var_to_bytes(variable)::Bytes`
 
 Makes Byte representation (Vector{UInt8}) of given variable
 This allows sending a variable over a socket connection in byte form
@@ -38,7 +19,7 @@ function var_to_bytes(variable)::Bytes
 end
 
 """
-  model_to_bytes(model)::Bytes
+  `model_to_bytes(model)::Bytes`
 
 Converts a Flux model to Bytes (Vector{UInt8})
 This allows sending a Flux model over a socket connection in byte form
@@ -50,7 +31,7 @@ function model_to_bytes(model)::Bytes
 end
 
 """
-  var_from_bytes(bytes::Bytes, to_object) -> variable
+  `var_from_bytes(bytes::Bytes, to_object)` -> variable
 
 Writes byte data into already initialized object (to_object).
 This allows sending a variable over a socket connection in byte form
@@ -66,7 +47,7 @@ function var_from_bytes(bytes::Bytes, to_object)
 end
 
 """
-  model_from_bytes(bytes::Bytes) -> Flux model
+  `model_from_bytes(bytes::Bytes)` -> Flux model
   
 Loads a BSON model from Bytes
 This allows sending a Flux model over a socket connection in byte form
@@ -82,7 +63,7 @@ function model_from_bytes(bytes::Bytes)
 end
 
 """
-  model_from_buffer(io::IOBuffer) -> Flux model
+  `model_from_buffer(io::IOBuffer)` -> Flux model
 
 Loads a BSON model from an IOBuffer (byte form)
 This allows sending a Flux model over a socket connection in byte form
@@ -95,7 +76,7 @@ function model_from_buffer(io::IOBuffer)
 end
 
 """
-  receive_multi_str(con::TCPSocket, start::String, stop::String)::String
+  `receive_multi_str(con::TCPSocket, start::String, stop::String)::String`
 
 Receives multiple lines (as a String) from a TCP connection
 Returns the string of everything between `start` and `stop`
@@ -131,7 +112,7 @@ end
 
 
 """
-  send_int(con::TCPSocket, num::Integer)
+  `send_int(con::TCPSocket, num::Integer)`
 
 Sends integer to socket connection (First packs integer to bytes to reduce size)
 """
@@ -149,7 +130,7 @@ function send_int(con::TCPSocket, num::Integer)::Nothing
 end
 
 """
-  receive_int(con::TCPSocket)::BigInt
+  `receive_int(con::TCPSocket)::BigInt`
 
 Receive BigInt from socket connection (Assumes number was packed into bytes)
 """
@@ -170,7 +151,7 @@ function receive_int(con::TCPSocket)::BigInt
 end
 
 """
-  send_bytes(con::TCPSocket, msg::Bytes)::Nothing
+  `send_bytes(con::TCPSocket, msg::Bytes)::Nothing`
 
 Sends Bytes over TCP socket connection
 """
@@ -185,7 +166,7 @@ end
 
 
 """
-  receive_bytes(con::TCPSocket)::Bytes
+  `receive_bytes(con::TCPSocket)::Bytes`
 
 Receive Bytes (Vector{UInt8}) from TCP socket connection
 """
@@ -201,7 +182,7 @@ function receive_bytes(con::TCPSocket)::Bytes
 end
 
 """
-  receive_str(con::TCPSocket)::String
+  `receive_str(con::TCPSocket)::String`
 
 Receive String from socket connection
 """
@@ -211,7 +192,7 @@ function receive_str(con::TCPSocket)::String
 end
 
 """
-  handshake_client(con::TCPSocket, [clientID::String])::Bytes -> symmetric key
+  `handshake_client(con::TCPSocket, [clientID::String])::Bytes` -> symmetric key
 
 Establishes shared symmetric key (in Bytes) with server. Performs key exchange securely with RSA.
 """
@@ -273,7 +254,7 @@ function handshake_client(con::TCPSocket, clientID = nothing)::Bytes
 end
 
 """
-  handshake_server(con::TCPSocket, [verifyID])::Bytes -> symmetric key
+  `handshake_server(con::TCPSocket, [verifyID])::Bytes` -> symmetric key
 
 Establishes shared symmetric key (in Bytes) with client. Performs key exchange securely with RSA.
 
@@ -342,7 +323,7 @@ function handshake_server(con::TCPSocket, verifyID = nothing)
 end
 
 """
-  secure_send(con::TCPSocket, msg::String, AES_key::Bytes)::Nothing
+  `secure_send(con::TCPSocket, msg::String, AES_key::Bytes)::Nothing`
 
 Encrypts message (String) with AES256 and sends it over socket connection
 """
@@ -356,7 +337,7 @@ function secure_send(con::TCPSocket, msg::String, AES_key::Bytes)::Nothing
 end
 
 """
-  secure_receive(con::TCPSocket, AES_key::Bytes)::String
+  `secure_receive(con::TCPSocket, AES_key::Bytes)::String`
 
 Receives and decrypts message (String) from TCP Socket connection using AES256
 (Note that white space padding will get stripped from the ends of the message)
@@ -369,7 +350,7 @@ function secure_receive(con::TCPSocket, AES_key::Bytes)::String
 end
 
 """
-  secure_send_bytes(con::TCPSocket, msg::Bytes, AES_key::Bytes)::Nothing
+  `secure_send_bytes(con::TCPSocket, msg::Bytes, AES_key::Bytes)::Nothing`
 
 Encrypts message (Bytes / Vector{UInt8}) with AES256 and sends it over socket connection
 """
@@ -379,7 +360,7 @@ function secure_send_bytes(con::TCPSocket, msg::Bytes, AES_key::Bytes)::Nothing
 end
 
 """
-  secure_receive_bytes(con::TCPSocket, AES_key::Bytes)::Bytes
+  `secure_receive_bytes(con::TCPSocket, AES_key::Bytes)::Bytes`
 
 Receives and decrypts message (Bytes / Vector{UInt8}) from TCP Socket connection using AES256
 (Note that white space padding will get stripped from the ends of the message)
@@ -391,7 +372,7 @@ end
 
 
 """
-  secure_send_int(con::TCPSocket, msg::Integer, AES_key::Bytes)::Nothing
+  `secure_send_int(con::TCPSocket, msg::Integer, AES_key::Bytes)::Nothing`
 
 Encrypts message (BigInt) with AES256 and sends it over socket connection
 """
@@ -401,7 +382,7 @@ function secure_send_int(con::TCPSocket, msg::Integer, AES_key::Bytes)::Nothing
 end
 
 """
-  secure_receive_int(con::TCPSocket, AES_key::Bytes)::BigInt
+  `secure_receive_int(con::TCPSocket, AES_key::Bytes)::BigInt`
 
 Receives and decrypts message (BigInt) from TCP Socket connection using AES256
 (Note that white space padding will get stripped from the ends of the message)
@@ -411,4 +392,3 @@ function secure_receive_int(con::TCPSocket, AES_key::Bytes)::BigInt
   return unpack_int(msg_bytes)
 end
 
-end # end module

@@ -16,8 +16,8 @@ The following is an example of how an AI model can be securely sent over a singl
 **Server**
 
 ```julia
-include("SockUtils.jl")
-using .SockUtils
+include("src/FluxFederated.jl")
+using .FluxFederated
 using Sockets
 using Flux
 
@@ -43,8 +43,8 @@ secure_send_bytes(con, model_bytes, shared_key)
 
 **Client**
 ```julia
-include("SockUtils.jl")
-using .SockUtils
+include("src/FluxFederated.jl")
+using .FluxFederated
 using Sockets
 using Flux
 
