@@ -19,5 +19,8 @@ export handshake_client, handshake_server, secure_send, secure_receive
 export secure_send_bytes, secure_send_int, secure_receive_bytes, secure_receive_int
 export var_to_bytes, var_from_bytes, model_to_bytes, model_from_buffer, model_from_bytes
 
+# serve
+include("async_serve.jl")
+export serve_model
 
 end # module

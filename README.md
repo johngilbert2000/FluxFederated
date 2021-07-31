@@ -68,10 +68,10 @@ ___
 ### TODO
 
 - [X] Send Flux model over TCP socket connection
-- [X] Support multiple connections, asynchronously
 - [X] Encrypt socket communication (RSA, AES)
+- [X] Support multiple connections, asynchronously
+- [X] FedAvg
 - [ ] Pseudo-SecAgg (involves trusted 3rd party)
-- [ ] FedAvg
 - [ ] Local training commands
 - [ ] Differential Privacy
 - [ ] Federated Ensemble Support

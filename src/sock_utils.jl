@@ -50,7 +50,7 @@ end
   `model_from_bytes(bytes::Bytes)` -> Flux model
   
 Loads a BSON model from Bytes
-This allows sending a Flux model over a socket connection in byte form
+This allows receiving a Flux model over a socket connection in byte form
 """
 function model_from_bytes(bytes::Bytes)
   #  write binary into buffer
@@ -66,7 +66,7 @@ end
   `model_from_buffer(io::IOBuffer)` -> Flux model
 
 Loads a BSON model from an IOBuffer (byte form)
-This allows sending a Flux model over a socket connection in byte form
+This allows receiving a Flux model over a socket connection in byte form
 """
 function model_from_buffer(io::IOBuffer)
   # copy buffer data to object
