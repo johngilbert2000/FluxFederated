@@ -63,6 +63,8 @@ model_bytes = secure_receive_bytes(con, shared_key)
 model = model_from_bytes(model_bytes) # --> Chain(Dense(10,5,relu),Dense(5,2),softmax)
 ```
 
+To see an example of federated averaging with multiple clients (i.e., multiple simultaneous connections), check out `async_server.jl` and `async_client.jl` in the `examples/` folder.
+
 ___
 
 ### TODO
