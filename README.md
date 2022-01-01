@@ -73,7 +73,7 @@ ___
 - [X] Encrypt socket communication (RSA, AES)
 - [X] Support multiple connections, asynchronously
 - [X] FedAvg
-- [ ] Validate BSON Flux models prior to deserialization
+- [ ] Send updated client weights without BSON (for security purposes)
 - [ ] Pseudo-Secure Aggregation (with trusted 3rd party)
 - [ ] Local training commands
 - [ ] Differential Privacy
