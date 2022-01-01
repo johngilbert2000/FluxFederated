@@ -73,15 +73,17 @@ ___
 - [X] Encrypt socket communication (RSA, AES)
 - [X] Support multiple connections, asynchronously
 - [X] FedAvg
-- [ ] Pseudo-SecAgg (involves trusted 3rd party)
+- [ ] Validate BSON Flux models prior to deserialization
+- [ ] Pseudo-Secure Aggregation (with trusted 3rd party)
 - [ ] Local training commands
 - [ ] Differential Privacy
-- [ ] Federated Ensemble Support
-- [ ] Multi-Key Homomorphic Encryption
-- [ ] SecAgg (no trusted 3rd party)
-- [ ] Model Quantization
+- [ ] Secure Aggregation (with no trusted 3rd party)
 
 ##### ADDITIONAL FEATURES
+
+- [ ] Federated Ensemble Support
+- [ ] Multi-Key Homomorphic Encryption
+- [ ] Model Quantization
 
 The following features could help assess privacy and security guarantees:
 
